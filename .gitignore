@@ -1,0 +1,14 @@
+__pycache__/actions.cpython-37.pyc
+__pycache__/espion.cpython-37.pyc
+__pycache__/main_excel.cpython-37.pyc
+__pycache__/mdbagent.cpython-37.pyc
+__pycache__/postgreagent.cpython-37.pyc
+__pycache__/quadraenv.cpython-37.pyc
+__pycache__/Query_pnl.cpython-37.pyc
+.vscode
+**/.ini
+**/.spec
+/venv
+/img
+/build
+/dist
