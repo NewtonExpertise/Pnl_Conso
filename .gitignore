@@ -6,8 +6,8 @@ __pycache__/postgreagent.cpython-37.pyc
 __pycache__/quadraenv.cpython-37.pyc
 __pycache__/Query_pnl.cpython-37.pyc
 .vscode
-**/.ini
-**/.spec
+*.ini
+*.spec
 /venv
 /img
 /build
