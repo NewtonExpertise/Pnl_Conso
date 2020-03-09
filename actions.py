@@ -114,13 +114,13 @@ class Operateur_PNL():
         ws_conso.range("M6").value = 0
         ws_conso.range("J5").clear()
         ws_conso.range("J7").clear()
-        ws_conso.range("A1").clear()
+        ws_conso.range("B1").clear()
         ws_conso.range("B2").clear()
 
         self.wb.sheets[self.ws_ecritureN].clear()
         self.wb.sheets[self.ws_ecritureN1].clear()
         nbligne = max(ws_conso.cells(self.ws.api.rows.count, "J").end(-4162).row+1, ws_conso.cells(self.ws.api.rows.count, "K").end(-4162).row+1)
-        ws_conso.range("J12:K"+str(nbligne)).clear()
+        ws_conso.range("J12:M"+str(nbligne)).clear()
 
     def conso_ectriture_analytique(self, mdbpath, fin_exercice, sheet_name, Client, Nom_groupe):
         """
@@ -132,7 +132,7 @@ class Operateur_PNL():
         if data:
 
             ws_conso = self.wb.sheets[self.ws_conso]
-            ws_conso.range("A1").value = Nom_groupe
+            ws_conso.range("B1").value = Nom_groupe
             if sheet_name == self.ws_ecritureN:
                 ws_conso.range("B2").value = fin_exercice
 
@@ -201,7 +201,26 @@ class Operateur_PNL():
         except Exception as e:
             print(e)
 
-        
+    
+    def set_manual_controle(self):
+        """
+        créer un tableau de controle de solde pour valider la conformiée des montants du P&L Conso.
+        """
+        ws_conso = self.wb.sheets[self.ws_conso]
+        nbligne = max(ws_conso.cells(self.ws.api.rows.count, "J").end(-4162).row,ws_conso.cells(self.ws.api.rows.count, "K").end(-4162).row)
+        print(nbligne)
+        liste_societe = ws_conso.range('J12:J'+str(nbligne)).value
+        ws_conso.range('J'+str(nbligne+3)).value = 'Contrôle manuel des revenus net après impôts par société'
+        ws_conso.range('J'+str(nbligne+4)).value = 'Société'
+        ws_conso.range('K'+str(nbligne+4)).value = 'Année N'
+        ws_conso.range('L'+str(nbligne+4)).value = 'Année N-1'
+        ws_conso.range('J'+str(nbligne+5)).options(transpose=True).value = liste_societe
+        nblignev2 = ws_conso.cells(self.ws.api.rows.count, "J").end(-4162).row
+        ws_conso.range('J'+str(nblignev2+1)).value = "Ecart : "
+        ws_conso.range('K'+str(nblignev2+1)).value = "=C61-SUM(K"+str(nbligne+5)+":K"+str(nblignev2)+")"
+        ws_conso.range('L'+str(nblignev2+1)).value = "=E61-SUM(L"+str(nbligne+5)+":L"+str(nblignev2)+")"
+        ws_conso.range('K'+str(nbligne+5)).select()
+
     def end_of_month(self, dt0):
         """
         Renvoi le dernier jour du mois de la date donnée
@@ -273,11 +292,13 @@ if __name__ == "__main__":
 
     OP = Operateur_PNL()
 
-    sheet_nameN = "Ecriture N"
-    sheet_name1N = "Ecriture N-1"
-    print('start clear')
-    OP.clear_pnl_conso()
-    print('end cleat')
-    OP.PnL_consolide(mdb ,sheet_nameN)
-    OP.PnL_consolide(mdb2, sheet_name1N)
-    OP.set_plage_cellule_pnl_conso()
+    OP.set_manual_controle()
+
+    # sheet_nameN = "Ecriture N"
+    # sheet_name1N = "Ecriture N-1"
+    # print('start clear')
+    # OP.set_plage_cellule_pnl_conso()
+    # print('end cleat')
+    # OP.PnL_consolide(mdb ,sheet_nameN)
+    # OP.PnL_consolide(mdb2, sheet_name1N)
+    # OP.set_plage_cellule_pnl_conso()

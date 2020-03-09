@@ -92,6 +92,7 @@ def pnl_conso_excel():
         if path_N or path_1N:
             print("BINGO")
             OP.set_plage_cellule_pnl_conso()
+            OP.set_manual_controle()
             ws.range("J7").value = End
 
         if path_N and path_1N:
