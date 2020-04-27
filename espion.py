@@ -5,7 +5,7 @@ from datetime import datetime
 from postgreagent import PostgreAgent
 
 
-def update_espion(dossier = "", base = "", argStr = ""):
+def update_espion(dossier = "", base = ""):
 
     conf = OrderedDict(
         [
@@ -20,10 +20,10 @@ def update_espion(dossier = "", base = "", argStr = ""):
     horodat = datetime.now()
     collab = getpass.getuser()
     table = "espion"
-    values = [collab, horodat, dossier, base, argStr]
+    values = [collab, horodat, dossier, base]
 
     sql = """
-    INSERT INTO espion (collab, horodat, dossier, base, args) 
+    INSERT INTO pnl_conso (collab, horodat, dossier, base) 
     VALUES (%s, %s, %s, %s, %s);
     """
 

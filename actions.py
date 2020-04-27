@@ -114,7 +114,7 @@ class Operateur_PNL():
         ws_conso.range("M6").value = 0
         ws_conso.range("J5").clear()
         ws_conso.range("J7").clear()
-        ws_conso.range("B1").clear()
+        ws_conso.range("A1:B1").clear()
         ws_conso.range("B2").clear()
 
         self.wb.sheets[self.ws_ecritureN].clear()

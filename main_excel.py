@@ -96,9 +96,9 @@ def pnl_conso_excel():
             ws.range("J7").value = End
 
         if path_N and path_1N:
-            update_espion(code_client, dossierN+' - '+dossier1N , operation)
+            update_espion(code_client, dossierN+' - '+dossier1N)
         elif path_N:
-            update_espion(code_client, dossierN , operation)
+            update_espion(code_client, dossierN)
         
 
     else:
