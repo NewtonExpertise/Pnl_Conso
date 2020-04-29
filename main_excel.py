@@ -52,7 +52,8 @@ def pnl_conso_excel():
         dossier1N = ws.range('M4').value
 
         bases = Q.recent_cpta(dossier=code_client, depth=3)
-        bases_name = [ base[0] for base in bases]
+        bases_name = [ base[0] for
+         base in bases]
         str_bases_name = ';'.join(bases_name)
 
         xw.Range('k4').api.validation.delete()

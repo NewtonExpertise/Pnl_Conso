@@ -44,6 +44,7 @@ def MacDo_Groupe(mdbpath):
     Groupe = []
     with MdbConnect(path_GI) as mdb:
         data = mdb.query(sql)
+    print(data)
     for codeDossier in data:
         Groupe.append(codeDossier[0])
     Nom =  data[0][1]

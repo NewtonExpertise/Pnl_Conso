@@ -19,19 +19,18 @@ def update_espion(dossier = "", base = ""):
 
     horodat = datetime.now()
     collab = getpass.getuser()
-    table = "espion"
-    values = [collab, horodat, dossier, base]
+    table  = 'pnl'
 
-    sql = """
-    INSERT INTO pnl_conso (collab, horodat, dossier, base) 
-    VALUES (%s, %s, %s, %s, %s);
+
+    sql = F"""
+    INSERT INTO pnl (collab, horodat, code_client, base, operation)
+    VALUES ('{collab}', '{horodat}', '{dossier}', '{base}', 'PNL_CONSO');
     """
-
     with PostgreAgent(conf) as db:
         if db.connection:
             if db.table_exists(table):
                 logging.debug(f"table {table} exists")        
-                db.cursor.execute(sql, values)
+                print(db.query(sql))
 
 # if __name__ == "__main__":
 #     import logging

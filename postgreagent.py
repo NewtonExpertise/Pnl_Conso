@@ -41,6 +41,7 @@ class PostgreAgent:
     def __exit__(self, exc_type, exc_value, traceback):
         self._close()
 
+
     def query(self, sql):
         data = []
         try:
@@ -51,6 +52,23 @@ class PostgreAgent:
         for row in self.cursor:
             data.append([x for x in row])
         return data
+    
+    def execute(self, sql):
+        try:
+            self.cursor.execute(sql)
+            return True
+        except (Exception, psycopg2.Error) as error:
+            logging.error(f"Echec requête : {error}")
+            return False
+
+    def query(self, sql):
+        data = []
+        try:
+            self.cursor.execute(sql)
+            return True
+        except (Exception, psycopg2.Error) as error:
+            logging.error(f"Echec requête : {error}")
+            return False
 
     def manage(self, sql):
         try:
